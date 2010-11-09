@@ -129,9 +129,9 @@ module Xapit
           model_name = file.gsub(/^#{base}([\w_\/\\]+)\.rb/, '\1')
       
           next if model_name.nil?
-          next if ::ActiveRecord::Base.send(:subclasses).detect { |model|
-            model.name == model_name
-          }
+#          next if ::ActiveRecord::Base.send(:subclasses).detect { |model|
+#            model.name == model_name
+#          }
       
           begin
             model_name.camelize.constantize
