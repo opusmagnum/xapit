@@ -13,7 +13,7 @@ module Xapit
 
     # Get multiple documents
     def find_multiple(ids)
-      @target.all(:keys => ids)
+      @target.bulk_get(:keys => ids)
     end
 
     # Use CouchRest pagination for batched find_each
@@ -25,18 +25,19 @@ module Xapit
         batch_size = 200
       end
 
-      begin
+#      begin
         # Fetch one batch of records
-        collection = @target.view(view, query).paginate(
-          :page => page, :per_page => batch_size
-        )
+        collection = @target.all
+        #        collection = @target.view(view, query).paginate(
+        #          :page => page, :per_page => batch_size
+        #        )
 
         collection.each do |record|
           yield record
         end
 
         page += 1
-      end while not collection.empty?
+ #     end while not collection.empty?
     end
   end
 end
